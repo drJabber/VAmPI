@@ -1,4 +1,4 @@
-from config import vuln_app
+from settings import vuln_app
 import os
 
 '''

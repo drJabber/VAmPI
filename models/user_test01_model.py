@@ -8,8 +8,8 @@ from random import randrange
 from sqlalchemy.sql import text
 
 
-class User(db.Model):
-    __tablename__ = 'users'
+class User01(db.Model):
+    __tablename__ = 'users01'
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
     username = db.Column(db.String(128), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
@@ -69,7 +69,7 @@ class User(db.Model):
     @staticmethod
     def get_user(username):
         if vuln:  # SQLi Injection
-            user_query = f"SELECT * FROM users WHERE username = '{username}'"
+            user_query = f"SELECT * FROM users01 WHERE username = '{username}'"
             query = db.session.execute(text(user_query))
             ret = query.fetchone()
             if ret:
@@ -81,9 +81,9 @@ class User(db.Model):
         return fin_query
 
     @staticmethod
-    def get_user01(user_name):
+    def get_user02(user_name):
         if vuln:  # SQLi Injection
-            user_query = f"SELECT * FROM users WHERE username = '{user_name}'"
+            user_query = f"SELECT * FROM users01 WHERE username = '{user_name}'"
             query = db.session.execute(text(user_query))
             ret = query.fetchone()
             if ret:
