@@ -67,31 +67,31 @@ class User01(db.Model):
         return [User.json_debug(user) for user in User.query.all()]
 
     @staticmethod
-    def get_user(username):
-        if vuln:  # SQLi Injection
-            user_query = f"SELECT * FROM users01 WHERE username = '{username}'"
-            query = db.session.execute(text(user_query))
-            ret = query.fetchone()
-            if ret:
-                fin_query = '{"username": "%s", "email": "%s"}' % (ret[1], ret[3])
-            else:
-                fin_query = None
-        else:
-            fin_query = User.query.filter_by(username=username).first()
-        return fin_query
-
-    @staticmethod
     def get_user02(user_name):
         if vuln:  # SQLi Injection
             user_query = f"SELECT * FROM users01 WHERE username = '{user_name}'"
-            query = db.session.execute(text(user_query))
+            query = db.session.execute(user_query)
             ret = query.fetchone()
             if ret:
                 fin_query = '{"username": "%s", "email": "%s"}' % (ret[1], ret[3])
             else:
                 fin_query = None
         else:
-            fin_query = User.query.filter_by(username=username).first()
+            fin_query = User01.query.filter_by(username=username).first()
+        return fin_query
+
+    @staticmethod
+    def get_user(username):
+        if vuln:  # SQLi Injection
+            user_query = f"SELECT * FROM users01 WHERE username = '{username}'"
+            query = db.session.execute(user_query)
+            ret = query.fetchone()
+            if ret:
+                fin_query = '{"username": "%s", "email": "%s"}' % (ret[1], ret[3])
+            else:
+                fin_query = None
+        else:
+            fin_query = User01.query.filter_by(username=username).first()
         return fin_query
 
     @staticmethod

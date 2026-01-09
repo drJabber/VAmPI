@@ -70,7 +70,7 @@ class User(db.Model):
     def get_user(username):
         if vuln:  # SQLi Injection
             user_query = f"SELECT * FROM users WHERE username = '{username}'"
-            query = db.session.execute(text(user_query))
+            query = db.session.execute(user_query)
             ret = query.fetchone()
             if ret:
                 fin_query = '{"username": "%s", "email": "%s"}' % (ret[1], ret[3])
@@ -84,7 +84,7 @@ class User(db.Model):
     def get_user01(user_name):
         if vuln:  # SQLi Injection
             user_query = f"SELECT * FROM users WHERE username = '{user_name}'"
-            query = db.session.execute(text(user_query))
+            query = db.session.execute(user_query)
             ret = query.fetchone()
             if ret:
                 fin_query = '{"username": "%s", "email": "%s"}' % (ret[1], ret[3])
