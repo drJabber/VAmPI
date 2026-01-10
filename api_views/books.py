@@ -1,6 +1,6 @@
 import jsonschema
 
-from api_views.blabla import token_validator, error_message_helper
+from api_views.blabla2 import token_validator, error_message_helper
 from settings import db
 from api_views.json_schemas import *
 from flask import jsonify, Response, request, json
