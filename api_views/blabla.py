@@ -220,3 +220,18 @@ def delete_user(username):
                 return Response(error_message_helper("User not found!"), 404, mimetype="application/json")
         else:
             return Response(error_message_helper("Only Admins may delete users!"), 401, mimetype="application/json")
+
+
+@staticmethod
+def get_user(username):
+    if vuln:  # SQLi Injection
+        user_query = f"SELECT * FROM users WHERE username = '{username}'"
+        query = db.session.execute(user_query)
+        ret = query.fetchone()
+        if ret:
+            fin_query = '{"username": "%s", "email": "%s"}' % (ret[1], ret[3])
+        else:
+            fin_query = None
+    else:
+        fin_query = User.query.filter_by(username=username).first()
+    return fin_query
